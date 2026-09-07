@@ -5,7 +5,7 @@ import StatusBadge from '../components/StatusBadge';
 import {
   Search, Filter, RefreshCw, Eye, CheckCircle, Clock, AlertTriangle,
   XCircle, Send, CheckCircle2, Upload, X, ChevronLeft, ChevronRight,
-  ExternalLink, Calendar, MapPin, Tag, Mail, User, AlertCircle
+  ExternalLink, Calendar, MapPin, Tag, Mail, User, AlertCircle, Trash2
 } from 'lucide-react';
 
 export default function AdminDashboardPage() {
@@ -153,6 +153,20 @@ export default function AdminDashboardPage() {
       alert('Error updating status: ' + err.message);
     } finally {
       setUpdatingStatus(false);
+    }
+  };
+
+  const handleDeleteComplaint = async (id, code) => {
+    if (!window.confirm(`Are you sure you want to permanently delete grievance ${code}? This will remove the record, audit logs, and attached photos.`)) {
+      return;
+    }
+    try {
+      await api.delete(`/admin/complaints/${id}`);
+      setSelectedComplaint(null);
+      fetchComplaints(pageInfo.pageNumber);
+      setActionMessage(`Grievance ${code} was permanently deleted.`);
+    } catch (err) {
+      alert('Error deleting grievance: ' + (err.message || 'Unknown error'));
     }
   };
 
@@ -414,16 +428,28 @@ export default function AdminDashboardPage() {
                   <td style={{ fontSize: '0.85rem', color: 'var(--slate-500)' }}>
                     {formatDate(c.submittedAt)}
                   </td>
-                  <td style={{ textAlign: 'right' }}>
+                  <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
                     <button
                       className="btn btn-secondary btn-sm"
                       onClick={(e) => {
                         e.stopPropagation();
                         openDetail(c.id);
                       }}
+                      style={{ marginRight: '6px' }}
                     >
                       <Eye size={14} />
                       View
+                    </button>
+                    <button
+                      className="btn btn-sm"
+                      style={{ background: '#fee2e2', color: '#b91c1c', border: '1px solid #fca5a5', padding: '0.35rem 0.55rem' }}
+                      title="Delete grievance"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDeleteComplaint(c.id, c.complaintCode);
+                      }}
+                    >
+                      <Trash2 size={13} />
                     </button>
                   </td>
                 </tr>
@@ -568,9 +594,9 @@ export default function AdminDashboardPage() {
                 </div>
               )}
 
-              {/* Action Buttons (if NOT COMPLETED) */}
-              {selectedComplaint.status !== 'COMPLETED' && (
-                <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '1.5rem', padding: '1rem', background: '#f8fafc', borderRadius: 'var(--radius-md)', border: '1px solid var(--slate-200)' }}>
+              {/* Action Buttons */}
+              <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '1.5rem', padding: '1rem', background: '#f8fafc', borderRadius: 'var(--radius-md)', border: '1px solid var(--slate-200)', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
                   {selectedComplaint.status === 'SUBMITTED' && (
                     <button
                       className="btn btn-secondary btn-sm"
@@ -581,7 +607,7 @@ export default function AdminDashboardPage() {
                     </button>
                   )}
 
-                  {selectedComplaint.status !== 'REJECTED' && (
+                  {selectedComplaint.status !== 'REJECTED' && selectedComplaint.status !== 'COMPLETED' && (
                     <button
                       className="btn btn-secondary btn-sm"
                       style={{ color: 'var(--danger-700)', borderColor: '#fca5a5' }}
@@ -592,15 +618,26 @@ export default function AdminDashboardPage() {
                     </button>
                   )}
 
-                  <button
-                    className="btn btn-success btn-sm"
-                    onClick={() => setCompletionDialog({ open: true, remarks: '', photoFile: null, photoPreview: null, error: '' })}
-                  >
-                    <CheckCircle size={15} />
-                    Complete Grievance (Mandatory Photo)
-                  </button>
+                  {selectedComplaint.status !== 'COMPLETED' && (
+                    <button
+                      className="btn btn-success btn-sm"
+                      onClick={() => setCompletionDialog({ open: true, remarks: '', photoFile: null, photoPreview: null, error: '' })}
+                    >
+                      <CheckCircle size={15} />
+                      Complete Grievance (Mandatory Photo)
+                    </button>
+                  )}
                 </div>
-              )}
+
+                <button
+                  className="btn btn-sm"
+                  style={{ background: '#fee2e2', color: '#b91c1c', border: '1px solid #f87171', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}
+                  onClick={() => handleDeleteComplaint(selectedComplaint.id, selectedComplaint.complaintCode)}
+                >
+                  <Trash2 size={15} />
+                  Delete Query
+                </button>
+              </div>
 
               {/* Status Timeline History */}
               <div style={{ marginBottom: '1.5rem' }}>

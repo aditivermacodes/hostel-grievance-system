@@ -336,4 +336,11 @@ public class ComplaintService {
 
         return response;
     }
+
+    @Transactional
+    public void deleteComplaint(Long id, AdminUser admin) {
+        Complaint complaint = complaintRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Complaint not found with id: " + id));
+        complaintRepository.delete(complaint);
+    }
 }

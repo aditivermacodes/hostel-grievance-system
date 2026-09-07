@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.Instant;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/admin/complaints")
@@ -87,5 +88,13 @@ public class AdminComplaintController {
 
         ComplaintAdminResponse response = complaintService.resendNotification(id, admin);
         return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Map<String, String>> deleteComplaint(
+            @PathVariable Long id,
+            @AuthenticationPrincipal AdminUser admin) {
+        complaintService.deleteComplaint(id, admin);
+        return ResponseEntity.ok(Map.of("message", "Grievance query deleted successfully"));
     }
 }
