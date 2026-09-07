@@ -31,12 +31,14 @@ services:
       JWT_EXPIRATION_HOURS: ${JWT_EXPIRATION_HOURS:-24}
       FILE_STORAGE_PATH: /app/uploads
       MAX_FILE_SIZE_MB: 5
-      MAIL_SIMULATE: ${MAIL_SIMULATE:-true}
-      MAIL_FROM: ${MAIL_FROM:-notifications@hgs.internal}
-      SPRING_MAIL_HOST: ${SPRING_MAIL_HOST:-localhost}
+      MAIL_SIMULATE: ${MAIL_SIMULATE:-false}
+      MAIL_FROM: ${MAIL_FROM:-notifications@imu-nmc.edu}
+      SPRING_MAIL_HOST: ${SPRING_MAIL_HOST:-mailpit}
       SPRING_MAIL_PORT: ${SPRING_MAIL_PORT:-1025}
       SPRING_MAIL_USERNAME: ${SPRING_MAIL_USERNAME:-}
       SPRING_MAIL_PASSWORD: ${SPRING_MAIL_PASSWORD:-}
+      SPRING_MAIL_AUTH: ${SPRING_MAIL_AUTH:-false}
+      SPRING_MAIL_STARTTLS: ${SPRING_MAIL_STARTTLS:-false}
     volumes:
       - uploads_data:/app/uploads
     ports:
@@ -44,6 +46,16 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+      mailpit:
+        condition: service_started
+
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: hgs-mailpit
+    restart: unless-stopped
+    ports:
+      - "8025:8025"
+      - "1025:1025"
 
   frontend:
     build:
