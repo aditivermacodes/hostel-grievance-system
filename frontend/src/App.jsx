@@ -11,11 +11,17 @@ import AdminDashboardPage from './pages/AdminDashboardPage';
 function AppContent() {
   const [activePage, setActivePage] = useState('home');
   const [trackId, setTrackId] = useState('');
+  const [initialCategory, setInitialCategory] = useState(1);
   const { isAuthenticated } = useAuth();
 
   const handleNavigateToTrack = (code) => {
     setTrackId(code);
     setActivePage('track');
+  };
+
+  const handleNavigateToSubmit = (categoryId = 1) => {
+    setInitialCategory(categoryId);
+    setActivePage('submit');
   };
 
   return (
@@ -25,7 +31,7 @@ function AppContent() {
       <main className="main-content">
         {activePage === 'home' && (
           <div className="container">
-            <HomePage setActivePage={setActivePage} />
+            <HomePage setActivePage={setActivePage} onSelectCategory={handleNavigateToSubmit} />
           </div>
         )}
 
@@ -33,6 +39,7 @@ function AppContent() {
           <SubmitGrievancePage
             setActivePage={setActivePage}
             setTrackId={handleNavigateToTrack}
+            initialCategory={initialCategory}
           />
         )}
 

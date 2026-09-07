@@ -3,7 +3,7 @@ import { api } from '../api/client';
 import ConfirmationModal from '../components/ConfirmationModal';
 import { Upload, X, AlertCircle, CheckCircle2, ShieldAlert, Image, Compass, Building, MapPin } from 'lucide-react';
 
-export default function SubmitGrievancePage({ setActivePage, setTrackId }) {
+export default function SubmitGrievancePage({ setActivePage, setTrackId, initialCategory }) {
   const DEFAULT_HOSTELS = [
     { id: 1, name: 'Old Hostel', code: 'OH' },
     { id: 2, name: 'New Hostel', code: 'NH' },
@@ -57,9 +57,15 @@ export default function SubmitGrievancePage({ setActivePage, setTrackId }) {
     hostelId: 2,
     locationType: 'ROOM',
     locationDetail: 'NH-BP-06',
-    categoryId: 1,
+    categoryId: initialCategory || 1,
     description: '',
   });
+
+  useEffect(() => {
+    if (initialCategory) {
+      setFormData((prev) => ({ ...prev, categoryId: initialCategory }));
+    }
+  }, [initialCategory]);
 
   const [touched, setTouched] = useState({});
   const [photoFile, setPhotoFile] = useState(null);
