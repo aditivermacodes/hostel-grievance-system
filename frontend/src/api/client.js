@@ -102,6 +102,8 @@ export const api = {
     body: JSON.stringify(body),
   }),
 
+  delete: (endpoint) => request(endpoint, { method: 'DELETE' }),
+
   postMultipart: (endpoint, formData) => request(endpoint, {
     method: 'POST',
     body: formData,
