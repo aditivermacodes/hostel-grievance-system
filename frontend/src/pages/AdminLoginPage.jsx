@@ -47,8 +47,8 @@ export default function AdminLoginPage({ setActivePage }) {
           }}>
             <Shield size={30} />
           </div>
-          <h1 style={{ fontSize: '1.5rem', marginBottom: '0.35rem' }}>Admin Portal</h1>
-          <p style={{ fontSize: '0.875rem' }}>Sign in to manage hostel grievances across all blocks</p>
+          <h1 style={{ fontSize: '1.5rem', marginBottom: '0.35rem' }}>IMU-NMC Admin Portal</h1>
+          <p style={{ fontSize: '0.875rem' }}>Sign in to manage Old Hostel &amp; New Hostel cadet grievances</p>
         </div>
 
         {error && (

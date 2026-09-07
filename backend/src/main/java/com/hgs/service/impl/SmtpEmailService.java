@@ -97,7 +97,7 @@ public class SmtpEmailService implements EmailService {
     private String buildSubmissionEmailHtml(Complaint complaint) {
         return """
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px;">
-                <h2 style="color: #1a56db;">Hostel Grievance System (HGS)</h2>
+                <h2 style="color: #1a56db;">IMU-NMC Hostel Maintenance & Repair</h2>
                 <p>Hello <strong>%s</strong>,</p>
                 <p>Your maintenance grievance has been successfully registered. Here are the details:</p>
                 <table style="width: 100%%; border-collapse: collapse; margin: 20px 0;">
@@ -146,7 +146,7 @@ public class SmtpEmailService implements EmailService {
                 </table>
                 <p>Thank you for helping us maintain high living standards in our hostels.</p>
                 <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 20px 0;" />
-                <p style="font-size: 12px; color: #6b7280;">Hostel Grievance Administration</p>
+                <p style="font-size: 12px; color: #6b7280;">IMU-NMC Hostel Administration</p>
             </div>
             """.formatted(
                 escapeHtml(complaint.getStudentName()),

@@ -248,9 +248,9 @@ export default function AdminDashboardPage() {
       {/* Top Banner */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
-          <h1 style={{ fontSize: '1.75rem', marginBottom: '0.25rem' }}>Administrator Management Portal</h1>
+          <h1 style={{ fontSize: '1.75rem', marginBottom: '0.25rem' }}>IMU-NMC Maintenance Administration</h1>
           <p style={{ color: 'var(--slate-500)', fontSize: '0.9rem' }}>
-            Logged in as <strong>{adminUser?.fullName || adminUser?.username}</strong> &bull; Centralized grievances across all hostels
+            Logged in as <strong>{adminUser?.fullName || adminUser?.username}</strong> &bull; Centralized grievances for Old Hostel &amp; New Hostel (Port, Central, Starboard Wings)
           </p>
         </div>
 

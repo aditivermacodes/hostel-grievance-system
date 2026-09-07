@@ -52,12 +52,23 @@ export default function TrackGrievancePage({ initialCode = '' }) {
     }
   };
 
+  const decodeMaritimeLocation = (code) => {
+    if (!code) return null;
+    const match = code.match(/^(NH|OH)-([A-D])([PCS])-(\d{1,2})$/i);
+    if (!match) return null;
+    const [_, hCode, fCode, wCode, rNum] = match;
+    const hostelMap = { NH: 'New Hostel', OH: 'Old Hostel' };
+    const floorMap = { A: 'Ground Floor', B: '1st Floor', C: '2nd Floor', D: '3rd Floor' };
+    const wingMap = { P: 'Port Wing', C: 'Central Wing', S: 'Starboard Wing' };
+    return `${hostelMap[hCode.toUpperCase()]} • ${floorMap[fCode.toUpperCase()]} (${fCode.toUpperCase()}) • ${wingMap[wCode.toUpperCase()]} (${wCode.toUpperCase()}) • Room ${rNum}`;
+  };
+
   return (
     <div className="container" style={{ maxWidth: '820px' }}>
       <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
         <h1 style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>Track Grievance Status</h1>
         <p style={{ color: 'var(--slate-600)' }}>
-          Enter your unique Complaint ID below to check current repair progress and resolution details.
+          Enter your IMU-NMC Complaint ID below to check live repair progress, assigned updates, and resolution proof.
         </p>
 
         {/* Search Bar */}
@@ -193,9 +204,14 @@ export default function TrackGrievancePage({ initialCode = '' }) {
           <div className="grid grid-cols-2" style={{ marginBottom: '1.5rem', background: 'var(--slate-50)', padding: '1.25rem', borderRadius: 'var(--radius-md)' }}>
             <div>
               <div style={{ fontSize: '0.8rem', color: 'var(--slate-500)', fontWeight: 600 }}>HOSTEL & LOCATION</div>
-              <div style={{ fontWeight: 600, color: 'var(--slate-800)', marginTop: '0.25rem' }}>
-                {complaint.hostelName} &bull; {complaint.locationDetail} ({complaint.locationType === 'ROOM' ? 'Room' : 'Common Area'})
+              <div style={{ fontWeight: 700, color: 'var(--slate-900)', marginTop: '0.25rem' }}>
+                {complaint.hostelName} &bull; <span style={{ fontFamily: 'monospace', background: '#dbeafe', color: '#1e40af', padding: '2px 6px', borderRadius: '4px' }}>{complaint.locationDetail}</span> ({complaint.locationType === 'ROOM' ? 'Cadet Room' : 'Common Area'})
               </div>
+              {decodeMaritimeLocation(complaint.locationDetail) && (
+                <div style={{ fontSize: '0.78rem', color: 'var(--primary-700)', fontWeight: 600, marginTop: '0.3rem' }}>
+                  {decodeMaritimeLocation(complaint.locationDetail)}
+                </div>
+              )}
             </div>
 
             <div>

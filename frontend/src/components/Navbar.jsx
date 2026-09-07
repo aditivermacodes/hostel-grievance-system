@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { Shield, FileText, Search, LogIn, LogOut, Menu, X } from 'lucide-react';
+import { Anchor, Shield, FileText, Search, LogIn, LogOut, Menu, X } from 'lucide-react';
 
 export default function Navbar({ activePage, setActivePage }) {
   const { isAuthenticated, adminUser, logout } = useAuth();
@@ -20,13 +20,15 @@ export default function Navbar({ activePage, setActivePage }) {
             style={{ cursor: 'pointer' }}
             onClick={() => handleNav('home')}
           >
-            <div className="brand-icon">
-              <Shield size={22} />
+            <div className="brand-icon" style={{ background: 'linear-gradient(135deg, #1e3a8a, #0284c7)', color: '#ffffff' }}>
+              <Anchor size={22} />
             </div>
             <div>
-              <div>Hostel Grievance System</div>
-              <div style={{ fontSize: '0.7rem', color: 'var(--slate-500)', fontWeight: 500 }}>
-                HGS Portal
+              <div style={{ fontWeight: 800, fontSize: '0.95rem', letterSpacing: '-0.01em', color: 'var(--slate-900)' }}>
+                IMU-NMC Hostel Maintenance & Repair
+              </div>
+              <div style={{ fontSize: '0.72rem', color: 'var(--primary-700)', fontWeight: 600 }}>
+                Indian Maritime University &bull; Cadet Portal
               </div>
             </div>
           </div>

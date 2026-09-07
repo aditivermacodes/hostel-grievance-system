@@ -34,13 +34,13 @@ export default function HomePage({ setActivePage }) {
             marginBottom: '1.25rem'
           }}>
             <ShieldCheck size={16} />
-            Official Hostel Redressal Portal
+            IMU-NMC Official Maintenance Portal
           </div>
-          <h1 style={{ color: 'white', fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem' }}>
-            Hostel Grievance & Maintenance System
+          <h1 style={{ color: 'white', fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem', letterSpacing: '-0.02em' }}>
+            IMU-NMC Hostel Maintenance & Repair
           </h1>
           <p style={{ color: '#e0e7ff', fontSize: '1.15rem', marginBottom: '2.5rem', lineHeight: 1.6 }}>
-            Report maintenance issues swiftly without any login. Track real-time progress using your unique Complaint ID and receive photo-verified resolution updates.
+            Swift maintenance reporting and tracking for Old Hostel (OH) and New Hostel (NH) cadets. Report room or common area repairs without any login, track progress in real-time, and view verified completion reports.
           </p>
 
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -87,8 +87,8 @@ export default function HomePage({ setActivePage }) {
               <Clock size={24} />
             </div>
             <div>
-              <h3 style={{ fontSize: '1.1rem', marginBottom: '0.25rem' }}>No Login Required</h3>
-              <p style={{ fontSize: '0.9rem' }}>Students and cadets can file a request immediately with just your name and contact email for alerts.</p>
+              <h3 style={{ fontSize: '1.1rem', marginBottom: '0.25rem' }}>No Cadet Login Required</h3>
+              <p style={{ fontSize: '0.9rem' }}>Cadets can submit a repair request in under a minute with your name, wing, room number, and email.</p>
             </div>
           </div>
 
@@ -98,7 +98,7 @@ export default function HomePage({ setActivePage }) {
             </div>
             <div>
               <h3 style={{ fontSize: '1.1rem', marginBottom: '0.25rem' }}>Mandatory Photo Verification</h3>
-              <p style={{ fontSize: '0.9rem' }}>Grievances cannot be closed without an administrator uploading an authenticated resolution photograph.</p>
+              <p style={{ fontSize: '0.9rem' }}>Repairs cannot be marked closed without maintenance personnel uploading photographic proof of resolution.</p>
             </div>
           </div>
 
@@ -107,8 +107,8 @@ export default function HomePage({ setActivePage }) {
               <ShieldCheck size={24} />
             </div>
             <div>
-              <h3 style={{ fontSize: '1.1rem', marginBottom: '0.25rem' }}>Student Privacy Protected</h3>
-              <p style={{ fontSize: '0.9rem' }}>Public tracking reveals issue progress and remarks, but zero personal contact details are leaked to other students.</p>
+              <h3 style={{ fontSize: '1.1rem', marginBottom: '0.25rem' }}>Cadet Privacy Protected</h3>
+              <p style={{ fontSize: '0.9rem' }}>Public tracking displays resolution progress and verified photos, but completely redacts cadet personal contact details.</p>
             </div>
           </div>
         </div>

@@ -14,7 +14,7 @@ public class RootStatusController {
     @GetMapping({"/", "/api", "/api/status"})
     public ResponseEntity<Map<String, Object>> getSystemStatus() {
         Map<String, Object> status = new LinkedHashMap<>();
-        status.put("service", "Hostel Grievance System (HGS) API");
+        status.put("service", "IMU-NMC Hostel Maintenance & Repair API");
         status.put("status", "UP");
         status.put("message", "Backend REST API is operational. Access the Web UI at http://localhost:3000");
         status.put("publicEndpoints", Arrays.asList(

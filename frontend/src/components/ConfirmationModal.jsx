@@ -53,6 +53,11 @@ export default function ConfirmationModal({ complaint, onClose, onTrack }) {
           }}>
             {complaint.complaintCode}
           </div>
+          {complaint.locationDetail && (
+            <div style={{ fontSize: '0.85rem', color: 'var(--primary-800)', marginTop: '0.25rem', fontWeight: 600 }}>
+              {complaint.hostelName ? `${complaint.hostelName} • ` : ''}{complaint.locationDetail}
+            </div>
+          )}
           <button
             type="button"
             className="btn btn-secondary btn-sm"

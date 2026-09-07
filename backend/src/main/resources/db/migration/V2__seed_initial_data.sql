@@ -3,8 +3,8 @@
 -- 1. Initial Hostels
 INSERT INTO hostels (name, code, active, created_at)
 VALUES 
-    ('Hostel A (Ganga Block)', 'HOSTEL-A', TRUE, CURRENT_TIMESTAMP),
-    ('Hostel B (Yamuna Block)', 'HOSTEL-B', TRUE, CURRENT_TIMESTAMP);
+    ('Old Hostel', 'OH', TRUE, CURRENT_TIMESTAMP),
+    ('New Hostel', 'NH', TRUE, CURRENT_TIMESTAMP);
 
 -- 2. Initial Categories
 INSERT INTO categories (name, description, active, created_at)

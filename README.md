@@ -1,6 +1,6 @@
-﻿# Hostel Grievance System (HGS)
+# IMU-NMC Hostel Maintenance & Repair
 
-A production-ready, privacy-first web application designed for educational and defense hostels. The system enables students and cadets to submit and track maintenance grievances (plumbing, electrical, civil, hygiene, etc.) without requiring authentication, while empowering authenticated administrators (wardens, caretakers) with a centralized management portal to triage, update, resolve with mandatory photographic verification, and permanently audit complaints.
+A production-ready, privacy-first web application designed for the Indian Maritime University - National Maritime Complex (IMU-NMC). The system enables naval cadets and students across Old Hostel (OH) and New Hostel (NH) to submit and track maintenance grievances (plumbing, electrical, civil, hygiene, etc.) without requiring authentication, while empowering authenticated administrators (wardens, caretakers) with a centralized management portal to triage, update, resolve with mandatory photographic verification, and permanently audit complaints.
 
 GitHub Repository: https://github.com/aditivermacodes/hostel-grievance-system
 
@@ -225,9 +225,18 @@ erDiagram
 
 Initial database records are automatically created upon application startup via Flyway migrations:
 
-### Hostels
-- Hostel A (Ganga Block) - Code: HOSTEL-A
-- Hostel B (Yamuna Block) - Code: HOSTEL-B
+### Hostels & Campus Blocks
+- Old Hostel (Code: OH)
+- New Hostel (Code: NH)
+
+### Maritime Wing and Room Layout
+Each hostel features:
+- Three Wings: Port (P), Central (C), and Starboard (S)
+- Four Floors: Ground Floor (A), 1st Floor (B), 2nd Floor (C), and 3rd Floor (D)
+- Twelve Rooms per wing/floor: 01 to 12
+- Standard Room Code Format: [Hostel]-[Floor][Wing]-[Room]
+  - Example: `NH-BP-06` represents New Hostel, 1st floor (B), Port wing (P), Room no. 06.
+  - Example: `OH-AS-12` represents Old Hostel, Ground floor (A), Starboard wing (S), Room no. 12.
 
 ### Categories
 - Plumbing: Water leaks, taps, flush valves, pipelines, drainage
