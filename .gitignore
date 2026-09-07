@@ -1,0 +1,58 @@
+# Compiled Java class files and build artifacts
+target/
+backend/target/
+*.class
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Node / React dependencies and build outputs
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment and sensitive credential files
+.env
+.env.local
+.env.*.local
+backend/.env
+frontend/.env
+*.key
+*.pem
+
+# User uploads and backups
+uploads/
+backend/uploads/
+backups/
+*.sql.gz
+
+# IDE and Editor files
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+.project
+.classpath
+.settings/
+.factorypath
+
+# Operating system files
+.DS_Store
+Thumbs.db
+desktop.ini
+*.tmp
+*.bak
+
+# Log files
+*.log
+logs/

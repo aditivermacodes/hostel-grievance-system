@@ -1,0 +1,63 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: hgs-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_NAME:-hgs_db}
+      POSTGRES_USER: ${DB_USER:-hgs_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-hgs_secret_2026}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-hgs_user} -d ${DB_NAME:-hgs_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: hgs-backend
+    restart: unless-stopped
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${DB_NAME:-hgs_db}
+      SPRING_DATASOURCE_USERNAME: ${DB_USER:-hgs_user}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD:-hgs_secret_2026}
+      JWT_SECRET: ${JWT_SECRET:-404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970}
+      JWT_EXPIRATION_HOURS: ${JWT_EXPIRATION_HOURS:-24}
+      FILE_STORAGE_PATH: /app/uploads
+      MAX_FILE_SIZE_MB: 5
+      MAIL_SIMULATE: ${MAIL_SIMULATE:-true}
+      MAIL_FROM: ${MAIL_FROM:-notifications@hgs.internal}
+      SPRING_MAIL_HOST: ${SPRING_MAIL_HOST:-localhost}
+      SPRING_MAIL_PORT: ${SPRING_MAIL_PORT:-1025}
+      SPRING_MAIL_USERNAME: ${SPRING_MAIL_USERNAME:-}
+      SPRING_MAIL_PASSWORD: ${SPRING_MAIL_PASSWORD:-}
+    volumes:
+      - uploads_data:/app/uploads
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: hgs-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+    name: hgs_postgres_data
+  uploads_data:
+    name: hgs_uploads_data
